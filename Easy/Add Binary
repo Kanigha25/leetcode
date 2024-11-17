@@ -1,0 +1,56 @@
+char* addBinary(char* a, char* b) {
+    int lenA = strlen(a); // 2
+    int lenB = strlen(b); // 1
+    int maxLen = (lenA > lenB ? lenA : lenB ) + 1; // for potential carry //4
+
+    char *res = malloc(sizeof(char) * (maxLen + 1));
+    res[maxLen] = '\0'; // Null-terminate the result string
+
+    // int carry = 0;
+    // int i = lenA - 1, j = lenB - 1, k = maxLen - 1;
+
+    // // Traverse both strings from end to beginning
+    // while (i >= 0 || j >= 0 || carry > 0) {
+    //     int sum = carry;
+        
+    //     if (i >= 0) {
+    //         sum += a[i--] - '0'; // Convert char to int (0 or 1)
+    //     }
+    //     if (j >= 0) {
+    //         sum += b[j--] - '0'; // Convert char to int (0 or 1)
+    //     }
+
+    //     result[k--] = (sum % 2) + '0'; // Convert back to char (0 or 1)
+    //     carry = sum / 2;               // Update carry
+    // }
+
+    // // If there is no leading carry, move result pointer one forward
+    // if (result[0] == '0') {
+    //     memmove(result, result + 1, maxLen); // Shift result to ignore leading '0'
+    // }
+
+
+    int carry = 0;
+    int i = lenA-1, j = lenB-1, k = maxLen-1;
+
+    while (i >= 0 || j >= 0 || k >= 0) {
+        int sum = carry;
+
+        if (i >= 0) {
+            sum += a[i--] - '0'; // - '0' converts char to int
+        }
+
+        if (j >= 0) {
+            sum += b[j--] - '0';
+        }
+
+        carry = sum/2;
+        res[k--] = (sum%2) + '0'; // + '0' converts int to char
+    }
+
+    if (res[0] == '0') {
+        memmove(res, res + 1, maxLen); // Shift result to ignore leading '0'
+    }
+
+    return res;
+}
