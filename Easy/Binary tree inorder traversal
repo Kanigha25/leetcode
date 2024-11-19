@@ -1,4 +1,4 @@
-nt* inorderTraversal(struct TreeNode* root, int* returnSize) {
+int* inorderTraversal(struct TreeNode* root, int* returnSize) {
     int * res = (int *)malloc(sizeof(int)*100);
     *returnSize = 0 ;
     void traversal(struct TreeNode* root , int *res , int * returnSize)
