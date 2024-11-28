@@ -1,0 +1,7 @@
+int countSegments(char* s) {
+    if(!s[0]) return 0;
+    short int res=0,i;
+    for(i=1;s[i]>0;i++) if(s[i]==32 && s[i-1]>32) res++;
+    if(s[i-1]>32) res++;
+    return res;
+}
