@@ -1,0 +1,31 @@
+#define toBit(ch) (((ch >= 'a' && ch <= 'z') ? (ch - 'a') : (ch - 'A')))
+#define isAlpha(ch) ((ch) >= 0 && (ch) <= 25)
+
+char *reverseVowels(char *s) {
+    int len = strlen(s);
+    int p1 = 0, p2 = len - 1, b1, b2;
+    char tmp = 0;
+    // bitmap of 'a''e''i''o''u'
+    unsigned long bitvec = 0x104111;
+
+    while (p1 < p2) {
+        int b1 = toBit(s[p2]);
+        if (isAlpha(b1) && bitvec >> b1 & 1) {
+            while (p1 < p2) {
+                b2 = toBit(s[p1]);
+                if (isAlpha(b2) && (bitvec >> b2 & 1)) {
+                    break;
+                }
+                p1++;
+            }
+            tmp = s[p2];
+            s[p2] = s[p1];
+            s[p1] = tmp;
+            /* Ensure we don't visit it again */
+            p1++;
+        }
+        p2--;
+    }
+
+    return s;
+}
