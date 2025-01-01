@@ -1,0 +1,25 @@
+int deep(struct TreeNode* root, int* max) {
+    if (root == NULL) {
+        return 0;
+    } else {
+        int leftDeep = deep(root->left, max);
+        int rightDeep = deep(root->right, max);
+
+        int currentMax = leftDeep + rightDeep;
+        if (*max < currentMax) {
+            *max = currentMax;
+        }
+
+        return (leftDeep > rightDeep ? leftDeep : rightDeep) + 1;
+    }
+}
+
+int diameterOfBinaryTree(struct TreeNode* root) {
+    if (root == NULL) {
+        return 0;
+    } else {
+        int max = 0;
+        deep(root, &max);
+        return max;
+    }
+}
